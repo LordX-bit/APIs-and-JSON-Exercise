@@ -1,10 +1,17 @@
-﻿namespace APIsAndJSON
+﻿using Newtonsoft.Json.Linq;
+
+namespace APIsAndJSON
 {
-    public class Program
+     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            var client  = new HttpClient();
+            var KanyeURL = "https://api.kanye.rest/";
+
+            var kanyeResponse = client.GetStringAsync(KanyeURL).Result;
+            var kanyeQuote = JObject.Parse(kanyeResponse).GetValue("quote").ToString();
+            Console.WriteLine(kanyeQuote);
         }
     }
 }
